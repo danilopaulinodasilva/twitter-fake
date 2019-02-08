@@ -9,7 +9,7 @@ module.exports = {
     await tweet.save()
 
     //Evento like
-    req.io.emmit('like', tweet)
+    req.io.emit('like', tweet)
 
     res.json(tweet)
   }

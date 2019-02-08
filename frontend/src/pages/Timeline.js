@@ -5,7 +5,7 @@ import twitterLogo from '../twitter.svg'
 import './Timeline.css'
 
 import Tweet from '../components/Tweet'
-import socket from 'socket.io-clent'
+import socket from 'socket.io-client'
 
 export default class Timeline extends Component {
   state = {
@@ -14,21 +14,27 @@ export default class Timeline extends Component {
   };
 
   async componentDidMount() {
-    this.subscriveToEvents()
+    this.subscribeToEvents()
 
     const response = await api.get('/tweets');
 
     this.setState({ tweets: response.data });
   }
 
-  subscriveToEvents = () => {
-    const io = io('http://localhost:3000') //bugbugbug
+  subscribeToEvents = () => {
+    const io = socket('http://localhost:3000')
 
-    io.on('Tweet', data => {
-      console.log(data);
+    io.on('tweet', data => {
+      this.setState({ tweets: [data, ...this.state.tweets] }) //Spread operator
+      //console.log(data);
     })
-    io.on('Like', data => {
-      console.log(data);
+
+    io.on('like', data => {
+      this.setState({ tweets: this.state.tweets.map(
+        tweet => tweet._id === data._id ? data : tweet
+      )
+    })
+    //console.log(data);
     })
   }
 
