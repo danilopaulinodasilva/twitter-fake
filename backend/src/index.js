@@ -8,7 +8,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
 //Conexão com o banco
-mongoose.connect('mongodb://goweek:goweek123@ds121475.mlab.com:21475/goweek471', { useNewUrlParser: true });
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds121475.mlab.com:21475/goweek471', { useNewUrlParser: true });
 
 //Intercepta todos os req's da aplicação
 app.use((req, res, next) => {
