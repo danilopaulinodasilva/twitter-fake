@@ -15,5 +15,19 @@ module.exports = {
     req.io.emit('tweet', tweet)
 
     res.json(tweet)
+  },
+
+  async delete(req, res) {
+    const tweet = await Tweet.findById(req.params.id)
+
+    await tweet.remove()
+
+    //Evento tweet
+    // req.io.emit('delete', tweet)
+
+    res.json({
+      message: "Tweet removido com sucesso",
+      id: tweet._id
+    })
   }
 }
