@@ -25,8 +25,12 @@ export default class Timeline extends Component {
     const io = socket('http://localhost:3000')
 
     io.on('tweet', data => {
-      this.setState({ tweets: [data, ...this.state.tweets] }) //Spread operator
-      //console.log(data);
+      this.setState({ tweets: [data, ...this.state.tweets] })
+    })
+
+    io.on('delete', data => {
+      this.setState({ tweets: this.state.tweets.filter(tweets => data._id === tweets._id ? !data : tweets)
+      })
     })
 
     io.on('like', data => {
@@ -34,9 +38,10 @@ export default class Timeline extends Component {
         tweet => tweet._id === data._id ? data : tweet
       )
     })
-    //console.log(data);
     })
+
   }
+
 
   handleNewTweet = async e => {
     if (e.keyCode !== 13) return;

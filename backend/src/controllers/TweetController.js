@@ -8,7 +8,6 @@ module.exports = {
   },
 
   async store(req, res) {
-    console.log(req);
     const tweet = await Tweet.create(req.body)
 
     //Evento tweet
@@ -22,8 +21,8 @@ module.exports = {
 
     await tweet.remove()
 
-    //Evento tweet
-    // req.io.emit('delete', tweet)
+    //Evento delete
+    req.io.emit('delete', tweet)
 
     res.json({
       message: "Tweet removido com sucesso",
