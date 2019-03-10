@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment'
 import api from '../services/api'
 
 import like from '../like.svg'
@@ -23,6 +24,7 @@ export default class Tweet extends Component {
     return(
       <li className="tweet">
         <strong>{ tweet.author }</strong>
+        <p className="tweet-data">{moment(this.props.tweet.createdAt).fromNow()}</p>
         <p>{ tweet.content }</p>
         <button type="button" onClick={this.handleLike}>
           <img src={like} alt="Twitter like"/>

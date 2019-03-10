@@ -38,3 +38,8 @@ button.btn-delete {
   float: right;
   color: #d03838;
 }
+
+p.tweet-data {
+    float: right;
+    color: gray;
+}
